@@ -80,6 +80,11 @@ def parse_args():
         help="Name of the model on DeterminedAI to create/update",
     )
     parser.add_argument(
+        "--workspace",
+        type=str,
+        help="Workspace to do training and register model",
+    )
+    parser.add_argument(
         "--incremental",
         type=bool,
         default=True,
@@ -144,7 +149,7 @@ def create_client():
     return DeterminedClient(
         master=os.getenv("DET_MASTER"),
         user=os.getenv("DET_USER"),
-        password=os.getenv("DET_PASSWORD"),
+        password=os.getenv("DET_PASS"),
     )
 
 
@@ -215,16 +220,17 @@ def get_checkpoint(exp):
 # =====================================================================================
 
 
-def get_or_create_model(client, model_name, pipeline, repo):
-    models = client.get_models(name=model_name)
+def get_or_create_model(client, workspace, model_name, pipeline, repo):
+    models = client.get_models(name=model_name, workspace_names=[workspace])
 
     if len(models) > 0:
         print(f"Model already present. Updating it : {model_name}")
-        model = client.get_models(name=model_name)[0]
+        model = client.get_models(name=model_name, workspace_names = [workspace])[0]
     else:
         print(f"Creating a new model : {model_name}")
         model = client.create_model(
             name=model_name,
+            workspace_name = workspace,
             labels=[pipeline, repo],
             metadata={"pipeline": pipeline, "repository": repo},
         )
@@ -298,7 +304,7 @@ def main():
         config_file, args.repo, pipeline, job_id, args.project
     )
     client = create_client()
-    model = get_or_create_model(client, args.model, pipeline, args.repo)
+    model = get_or_create_model(client, args.workspace, args.model, pipeline, args.repo)
     exp = run_experiment(client, config, workdir, model, args.incremental)
 
     if exp is None:

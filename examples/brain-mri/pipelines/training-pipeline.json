@@ -12,36 +12,18 @@
       "empty_files": true
     }
   },
+  "determined": {
+    "workspaces": ["PDK Demos"]
+  },
+  "datum_tries": 1,
   "transform": {
     "cmd": [
       "/bin/sh"
     ],
     "stdin": [
-      "python train.py --git-url https://git@github.com:/determined-ai/pdk.git --git-ref main --sub-dir examples/brain-mri/experiment --config const.yaml --repo brain-mri-data --model brain-mri --project pdk-brain-mri"
+      "python train.py --git-url https://git@github.com:/determined-ai/pdk.git --git-ref main --sub-dir examples/brain-mri/experiment --config const.yaml --repo brain-mri-data --model brain-mri --project pdk"
     ],
-    "image": "pachyderm/pdk:train-v0.0.1",
-    "secrets": [
-      {
-        "name": "pipeline-secret",
-        "key": "det_master",
-        "env_var": "DET_MASTER"
-      },
-      {
-        "name": "pipeline-secret",
-        "key": "det_user",
-        "env_var": "DET_USER"
-      },
-      {
-        "name": "pipeline-secret",
-        "key": "det_password",
-        "env_var": "DET_PASSWORD"
-      },
-      {
-        "name": "pipeline-secret",
-        "key": "pac_token",
-        "env_var": "PAC_TOKEN"
-      }
-    ]
+    "image": "bosterbuhr/pdk-train:0.0.1"
   },
   "autoscaling": true
 }
