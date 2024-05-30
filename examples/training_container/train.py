@@ -131,12 +131,12 @@ def read_config(conf_file):
 
 def setup_config(config_file, repo, pipeline, job_id, project):
     config = read_config(config_file)
-    config["data"]["pachyderm"]["host"] = os.getenv("PACHD_PEER_SERVICE_HOST")
-    config["data"]["pachyderm"]["port"] = os.getenv("PACHD_PEER_SERVICE_PORT")
-    config["data"]["pachyderm"]["repo"] = repo
-    config["data"]["pachyderm"]["branch"] = job_id
-    config["data"]["pachyderm"]["token"] = os.getenv("PACH_TOKEN")
-    config["data"]["pachyderm"]["project"] = project
+    config["integration"]["pachyderm"]["pachd"]["host"] = os.getenv("PACHD_PEER_SERVICE_HOST")
+    config["integration"]["pachyderm"]["pachd"]["port"] = os.getenv("PACHD_PEER_SERVICE_PORT")
+    config["integration"]["pachyderm"]["dataset"]["repo"] = repo
+    config["integration"]["pachyderm"]["dataset"]["branch"] = job_id
+    config["integration"]["pachyderm"]["dataset"]["token"] = os.getenv("PACH_TOKEN")
+    config["integration"]["pachyderm"]["dataset"]["project"] = project
 
     config["labels"] = [repo, job_id, pipeline]
 
@@ -163,11 +163,11 @@ def execute_experiment(
     try:
         if checkpoint is None:
             parent_id = None
-            configfile["data"]["pachyderm"]["previous_commit"] = None
+            configfile["integrations"]["pachyderm"]["dataset"]["previous_commit"] = None
             exp = client.create_experiment(configfile, code_path)
         else:
             parent_id = checkpoint.training.experiment_id
-            configfile["data"]["pachyderm"]["previous_commit"] = pach_version
+            configfile["integrations"]["pachyderm"]["dataset"]["previous_commit"] = pach_version
             exp = client.continue_experiment(
                 configfile, parent_id, checkpoint.uuid
             )

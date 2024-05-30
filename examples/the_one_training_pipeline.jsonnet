@@ -44,7 +44,7 @@ local autoscaling_check(autoscaling) =
 # images not yet available
 local pdk_image(model, mode) = 
     if mode == "prep" then "us-central1-docker.pkg.dev/dai-dev-554/pdk-registry/pdk_model_prep:1.0"
-    else if mode == "train" then "bosterbuhr/pdk-train:0.0.1"
+    else if mode == "train" then "bosterbuhrhpe/pdk-train:0.2.0"
     else if mode == "deploy" then "pachyderm/pdk:brain-deploy-v0.0.6";
 
 

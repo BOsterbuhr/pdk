@@ -6,13 +6,6 @@ data:
   repo: "mateuszbuda/brain-segmentation-pytorch"
   model: "unet"
   download_directory: "/tmp"
-  pachyderm:
-    host:
-    port:
-    repo:
-    project:
-    branch:
-    token:
 hyperparameters:
   global_batch_size: 32
   init_features: 32
@@ -36,3 +29,18 @@ max_restarts: 0
 entrypoint: model_def:MRIUnetTrial
 profiling:
   enabled: True
+integrations:
+  pachyderm:
+    pachd:
+      host: 
+      port: 
+    proxy:
+      scheme: http
+      host: console.pachpe.com
+      port: 80
+    dataset:
+      branch: 
+      commit: 
+      project: 
+      repo: 
+      token:
