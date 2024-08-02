@@ -44,6 +44,5 @@ integrations:
       project: 
       repo: 
       token:
-      previous_commit:
 environment:
   image: determinedai/environments:cuda-11.3-pytorch-1.10-tf-2.8-gpu-0.19.10
