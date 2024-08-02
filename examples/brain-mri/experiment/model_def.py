@@ -114,7 +114,6 @@ class MRIUnetTrial(PyTorchTrial):
             data_dir,
             data_config["pachyderm"]["token"],
             data_config["pachyderm"]["project"],
-            data_config["pachyderm"]["previous_commit"],
         )
         print(f"Data dir set to : {data_dir}")
         return [des for src, des in files]
