@@ -36,8 +36,10 @@ class MRIUnetTrial(PyTorchTrial):
                     self.context.get_hparam("split_seed"),
                     self.context.get_hparam("validation_ratio"),
                 )
-            except:
-                pass
+            except Exception as e:
+                print(f"Error during dataset initialization: {e}")
+                self.train_dataset = None
+                self.val_dataset = None
 
         if training:
             try:
@@ -62,8 +64,8 @@ class MRIUnetTrial(PyTorchTrial):
                         weight_decay=self.context.get_hparam("weight_decay"),
                     )
                 )
-            except:
-                pass
+            except Exception as e:
+                print(f"Error during model initialization: {e}")
         else:
             model = torch.hub.load(
                 self.data_config["repo"],
@@ -99,6 +101,8 @@ class MRIUnetTrial(PyTorchTrial):
         return {"val_loss": loss, "val_IoU": iou}
 
     def build_training_data_loader(self):
+        if self.train_dataset is None:
+            raise AttributeError("train_dataset is not set.")
         return DataLoader(self.train_dataset, batch_size=self.context.get_per_slot_batch_size(), shuffle=True)
 
     def build_validation_data_loader(self):
