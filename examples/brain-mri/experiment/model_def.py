@@ -112,8 +112,8 @@ class MRIUnetTrial(PyTorchTrial):
     def download_data(self, full_config, data_dir):
 
         files = download_pach_repo(
-            full_config["integrations"]["pachyderm"]["proxy"]["host"],
-            full_config["integrations"]["pachyderm"]["proxy"]["port"],
+            full_config["integrations"]["pachyderm"]["pachd"]["host"],
+            full_config["integrations"]["pachyderm"]["pachd"]["port"],
             full_config["integrations"]["pachyderm"]["dataset"]["repo"],
             full_config["integrations"]["pachyderm"]["dataset"]["branch"],
             data_dir,
