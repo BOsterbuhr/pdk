@@ -49,7 +49,7 @@ class MRIUnetTrial(PyTorchTrial):
 
                 with filelock.FileLock(os.path.join(full_dir, "download.lock")):
                     model = torch.hub.load(
-                        self.full_config["integrations"]["pachyderm"]["dataset"]["repo"],
+                        self.data_config["repo"],
                         self.data_config["model"],
                         in_channels=self.context.get_hparam("input_channels"),
                         out_channels=self.context.get_hparam("output_channels"),
@@ -69,7 +69,7 @@ class MRIUnetTrial(PyTorchTrial):
                 print(f"Error during model initialization: {e}")
         else:
             model = torch.hub.load(
-                self.full_config["integrations"]["pachyderm"]["dataset"]["repo"],
+                self.data_config["repo"],
                 self.data_config["model"],
                 in_channels=self.context.get_hparam("input_channels"),
                 out_channels=self.context.get_hparam("output_channels"),
