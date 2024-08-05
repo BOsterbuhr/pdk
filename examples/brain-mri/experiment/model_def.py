@@ -16,6 +16,7 @@ class MRIUnetTrial(PyTorchTrial):
     def __init__(self, context: PyTorchTrialContext):
         self.context = context
 
+        self.full_config = self.context.get_experiment_config()
         self.data_config = self.context.get_data_config()
         training = os.environ.get("SERVING_MODE") != "true"
         full_dir = "/"
@@ -108,16 +109,16 @@ class MRIUnetTrial(PyTorchTrial):
     def build_validation_data_loader(self):
         return DataLoader(self.val_dataset, batch_size=self.context.get_per_slot_batch_size())
 
-    def download_data(self, data_config, data_dir):
+    def download_data(self, data_config, full_config, data_dir):
 
         files = download_pach_repo(
-            data_config["pachyderm"]["host"],
-            data_config["pachyderm"]["port"],
-            data_config["pachyderm"]["repo"],
-            data_config["pachyderm"]["branch"],
+            full_config["integrations"]["pachyderm"]["proxy"]["host"],
+            full_config["integrations"]["pachyderm"]["proxy"]["port"],
+            full_config["integrations"]["pachyderm"]["dataset"]["repo"],
+            full_config["integrations"]["pachyderm"]["dataset"]["branch"],
             data_dir,
-            data_config["pachyderm"]["token"],
-            data_config["pachyderm"]["project"],
+            full_config["integrations"]["pachyderm"]["dataset"]["token"],
+            full_config["integrations"]["pachyderm"]["dataset"]["project"],
         )
         print(f"Data dir set to : {data_dir}")
         return [des for src, des in files]
