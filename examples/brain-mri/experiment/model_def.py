@@ -109,7 +109,7 @@ class MRIUnetTrial(PyTorchTrial):
     def build_validation_data_loader(self):
         return DataLoader(self.val_dataset, batch_size=self.context.get_per_slot_batch_size())
 
-    def download_data(self, data_config, full_config, data_dir):
+    def download_data(self, full_config, data_dir):
 
         files = download_pach_repo(
             full_config["integrations"]["pachyderm"]["proxy"]["host"],
