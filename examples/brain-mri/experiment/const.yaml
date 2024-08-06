@@ -1,4 +1,4 @@
-name: Pipeline-Run-Brain-MRI-1GPU
+name: CDR-Run-Brain-MRI-1GPU
 workspace: PDK Demos
 project: pdk-brain-mri
 data:
@@ -45,7 +45,6 @@ integrations:
       repo: 
       token:
 environment:
-  image: determinedai/environments:cuda-11.3-pytorch-1.10-tf-2.8-gpu-0.19.10
   pod_spec:
     apiVersion: v1
     kind: Pod
