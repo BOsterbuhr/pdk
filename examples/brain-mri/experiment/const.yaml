@@ -44,17 +44,3 @@ integrations:
       project: 
       repo: 
       token:
-environment:
-  pod_spec:
-    apiVersion: v1
-    kind: Pod
-    spec:
-      containers:
-      - name: determined-container
-        volumeMounts:
-        - mountPath: /cache
-          name: storage-crd-many-cache-0
-      volumes:
-      - name: storage-crd-many-cache-0
-        persistentVolumeClaim:
-          claimName: storage-crd-many-cache-0
