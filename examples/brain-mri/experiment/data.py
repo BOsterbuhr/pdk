@@ -104,23 +104,25 @@ def download_pach_repo(
     root,
     token,
     fileset_id,
-    datum_id,
-    cache_location
+    datum_id
 ):
     print(f"Starting to download dataset: {repo}@{branch} --> {root}")
+    datum_path = f"/pfs/{datum_id}"
 
     if not os.path.exists(root):
         os.makedirs(root)
 
+    if not os.path.exists(f"{root}/pfs/{datum_id}"):
+        os.makedirs(f"{root}/pfs/{datum_id}")
+    
     client = pachyderm_sdk.Client(
         host=pachyderm_host, port=pachyderm_port, auth_token=token
     )
     
-    datum_path = f"/pfs/{datum_id}"
+    
     client.storage.assemble_fileset(
         fileset_id,
         path=datum_path,
-        cache_location=cache_location,
         destination=root,
     )
     return [(os.path.join(root, file), file) for file in os.listdir(root)]
