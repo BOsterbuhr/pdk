@@ -53,8 +53,8 @@ environment:
       - name: determined-container
         volumeMounts:
         - mountPath: /cache
-          name: storage-pachpe-mldx-crd-cache-0
+          name: storage-crd-many-cache-0
       volumes:
-      - name: storage-pachpe-mldx-crd-cache-0
+      - name: storage-crd-many-cache-0
         persistentVolumeClaim:
-          claimName: storage-pachpe-mldx-crd-cache-0
+          claimName: storage-crd-many-cache-0
