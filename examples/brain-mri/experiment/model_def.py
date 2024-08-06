@@ -120,9 +120,8 @@ class MRIUnetTrial(PyTorchTrial):
             full_config["integrations"]["pachyderm"]["dataset"]["branch"],
             data_dir,
             full_config["integrations"]["pachyderm"]["dataset"]["token"],
-            data_config["data"]["fileset_id"],
-            data_config["data"]["datum_id"],
-            data_config["data"]["cache_location"],
+            data_config["fileset_id"],
+            data_config["datum_id"]
         )
         print(f"Data dir set to : {data_dir}")
         return [des for src, des in files]
