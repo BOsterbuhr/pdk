@@ -125,7 +125,7 @@ def download_pach_repo(
         path=datum_path,
         destination=root,
     )
-    print(f"List of files in the dataset: {[(os.path.join(root, file), file) file in os.listdir(root)]}")
+    print(f"List of files in the dataset: {[(os.path.join(root, file), file) foor file in os.listdir(root)]}")
     return [(os.path.join(root, file), file) for file in os.listdir(root)]
 
 
