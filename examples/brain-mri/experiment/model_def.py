@@ -27,7 +27,7 @@ class MRIUnetTrial(PyTorchTrial):
                 data_dir = self.data_config["data_dir"]
                 full_dir = os.path.join(full_dir, download_dir.strip("/"), data_dir.strip("/"))
 
-                des = self.download_data(self.full_config, full_dir)
+                des = self.download_data(self.data_config, self.full_config, full_dir)
 
                 print("Download Directory = " + full_dir)
 
@@ -109,7 +109,7 @@ class MRIUnetTrial(PyTorchTrial):
     def build_validation_data_loader(self):
         return DataLoader(self.val_dataset, batch_size=self.context.get_per_slot_batch_size())
 
-    def download_data(self, full_config, data_dir):
+    def download_data(self, data_config, full_config, data_dir):
 
         files = download_pach_repo(
             full_config["integrations"]["pachyderm"]["pachd"]["host"],
@@ -118,7 +118,9 @@ class MRIUnetTrial(PyTorchTrial):
             full_config["integrations"]["pachyderm"]["dataset"]["branch"],
             data_dir,
             full_config["integrations"]["pachyderm"]["dataset"]["token"],
-            full_config["integrations"]["pachyderm"]["dataset"]["project"],
+            data_config["data"]["fileset_id"],
+            data_config["data"]["datum_id"],
+            data_config["data"]["cache_location"],
         )
         print(f"Data dir set to : {data_dir}")
         return [des for src, des in files]
