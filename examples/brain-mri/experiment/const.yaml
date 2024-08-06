@@ -1,6 +1,6 @@
 name: CDR-Run-Brain-MRI-1GPU
 workspace: PDK Demos
-project: pdk-brain-mri
+project: cdr-pdk-brain-mri
 data:
   data_dir: "/data"
   repo: "mateuszbuda/brain-segmentation-pytorch"
