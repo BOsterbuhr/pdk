@@ -1,5 +1,6 @@
 import os
 from typing import Any, Dict, Sequence, Tuple, Union, cast
+import traceback
 
 import data
 import filelock
@@ -39,6 +40,7 @@ class MRIUnetTrial(PyTorchTrial):
                 )
             except Exception as e:
                 print(f"Error during dataset initialization: {e}")
+                print(traceback.format_exc())
                 self.train_dataset = None
                 self.val_dataset = None
 
