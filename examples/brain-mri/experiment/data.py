@@ -87,15 +87,6 @@ def get_train_val_datasets(download_dir, data_dir, seed, validation_ratio=0.2):
 
 # ======================================================================================================================
 
-
-
-def safe_open_wb(path):
-    ''' Open "path" for writing, creating any parent directories as needed.
-    '''
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    return open(path, 'wb')
-
-
 def download_pach_repo(
     pachyderm_host,
     pachyderm_port,
@@ -104,7 +95,8 @@ def download_pach_repo(
     root,
     token,
     fileset_id,
-    datum_id
+    datum_id,
+    cache_location
 ):
     print(f"Starting to download dataset: {repo}@{branch} --> {root}")
     datum_path = f"/pfs/{datum_id}"
@@ -119,11 +111,11 @@ def download_pach_repo(
         host=pachyderm_host, port=pachyderm_port, auth_token=token
     )
     
-    
     client.storage.assemble_fileset(
         fileset_id,
         path=datum_path,
         destination=root,
+        cache_location=cache_location,
     )
     return [(os.path.join(root, file), file) for file in os.listdir(root)]
 
