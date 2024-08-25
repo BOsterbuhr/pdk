@@ -44,17 +44,17 @@ integrations:
       project: 
       repo: 
       token:
-environment:
-  pod_spec:
-    apiVersion: v1
-    kind: Pod
-    spec:
-      containers:
-      - name: determined-container
-        volumeMounts:
-        - mountPath: /cache
-          name: cdr-cache-pachpe-mldx-0
-      volumes:
-      - name: cdr-cache-pachpe-mldx-0
-        persistentVolumeClaim:
-          claimName: cdr-cache-pachpe-mldx-0
+# environment:
+#   pod_spec:
+#     apiVersion: v1
+#     kind: Pod
+#     spec:
+#       containers:
+#       - name: determined-container
+#         volumeMounts:
+#         - mountPath: /cache
+#           name: cdr-cache-pachpe-mldx-0
+#       volumes:
+#       - name: cdr-cache-pachpe-mldx-0
+#         persistentVolumeClaim:
+#           claimName: cdr-cache-pachpe-mldx-0
